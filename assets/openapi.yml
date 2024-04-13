@@ -1,0 +1,268 @@
+openapi: 3.0.0
+info:
+  title: Prime number API
+  version: 0.1.0
+servers:
+  - url: https://primes.latana.rocks
+paths:
+  /get/next:
+    get:
+      tags:
+        - Get routes
+      description: Get next prime number
+      parameters:
+        - name: num
+          required: true
+          in: query
+          schema:
+            type: integer
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /get/prev:
+    get:
+      tags:
+        - Get routes
+      description: Get previous prime number
+      parameters:
+        - name: num
+          required: true
+          in: query
+          schema:
+            type: integer
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /get/between:
+    get:
+      tags:
+        - Get routes
+      description: Get all prime between two numbers
+      parameters:
+        - name: num1
+          required: true
+          in: query
+          schema:
+            type: integer
+        - name: num2
+          required: true
+          in: query
+          schema:
+            type: integer
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /post/next:
+    post:
+      tags:
+        - Post routes
+      description: Get next prime number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleNumberPost'
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /post/prev:
+    post:
+      tags:
+        - Post routes
+      description: Get previous prime number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleNumberPost'
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /post/between:
+    post:
+      tags:
+        - Post routes
+      description: Get all prime between two numbers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoubleNumberPost'
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /url/{num}/next:
+    get:
+      tags:
+        - URL routes
+      description: Get next prime number
+      parameters:
+        - name: num
+          required: true
+          in: path
+          schema:
+            type: integer
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /url/{num}prev:
+    get:
+      tags:
+        - URL routes
+      description: Get previous prime number
+      parameters:
+        - name: num
+          required: true
+          in: path
+          schema:
+            type: integer
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /url/{num1}/and/{num2}:
+    get:
+      tags:
+        - URL routes
+      description: Get all prime between two numbers
+      parameters:
+        - name: num1
+          required: true
+          in: path
+          schema:
+            type: integer
+        - name: num2
+          required: true
+          in: path
+          schema:
+            type: integer
+      summary: Get next
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+components:
+  schemas:
+    SingleNumberPost:
+      type: object
+      properties:
+        num:
+          type: integer
+    DoubleNumberPost:
+      type: object
+      properties:
+        num1:
+          type: integer
+        num2:
+          type: integer
+    Response:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          oneOf:
+            - type: string
+            - type: number
+            - type: array
+              items:
+                type: number
