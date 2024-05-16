@@ -185,7 +185,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response'
-  /url/{num}prev:
+  /url/{num}/prev:
     get:
       tags:
         - URL routes
